@@ -1,2 +1,10 @@
-class ImageDoesNotExist(Exception):
+class FileDoesNotExist(Exception):
+    pass
+
+
+class GetFileError(Exception):
+    pass
+
+
+class PostFileError(Exception):
     pass
