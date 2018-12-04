@@ -1,0 +1,2 @@
+class ImageDoesNotExist(Exception):
+    pass
