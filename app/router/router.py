@@ -1,11 +1,7 @@
+from flask import request, jsonify, send_file
 from flask_classy import FlaskView
-from flask import request, jsonify
-from PIL import Image
 from app.service.service import Service
-from io import BytesIO
-
 import io
-
 
 service = Service()
 
@@ -15,9 +11,13 @@ class Base(FlaskView):
 
     def get(self, filename):
         image = service.get(filename)
-        print(image)
+        return send_file(io.BytesIO(image), attachment_filename=filename)
 
     def post(self):
         file = request.files['file']
-        service.post(file.name, file.read())
+
+        file.save(file.filename)
+        with open(file.filename, 'rb') as f:
+            data = f.read()
+        service.post(file.filename, data)
         return jsonify({'status': 'ok'})
