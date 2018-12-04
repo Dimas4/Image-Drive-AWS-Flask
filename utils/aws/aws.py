@@ -3,13 +3,16 @@ import boto3
 
 from app.exception.exception import FileDoesNotExist
 from utils.exception.exception import BackEndError
+from config.get_config import get_config
 
 
 class BackEnd:
     def __init__(self):
-        self.bucket_name = 'Gallery1'
+        self.config = get_config()
+
+        self.bucket_name = self.config['AWS']['bucket_name']
         self.s3 = boto3.client('s3', endpoint_url="http://localhost:4572")
-        self.bucket = self.s3.create_bucket(Bucket=self.bucket_name)
+        self.s3.create_bucket(Bucket=self.bucket_name)
 
     def get(self, key):
         try:

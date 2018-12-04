@@ -1,1 +1,3 @@
 DEBUG: True
+AWS:
+  bucket_name: Gallery_v1.0
